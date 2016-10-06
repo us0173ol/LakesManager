@@ -30,30 +30,39 @@ public class LakesManager {
         try {
             System.out.println("Enter name of lake, enter to quit");
             String lakeName = stringScanner.nextLine();
+            if(lakeName.contains(Lakes.class.getName())) {
+                while (lakeName.length() != 0) {
 
-            while (lakeName.length() != 0) {
+                    Lakes lake = new Lakes(lakeName);
 
-                Lakes lake = new Lakes(lakeName);
-
-                System.out.println("Time for " + lakeName + " enter 0 to quit");  //todo could be more user friendly
-                double time = numberScanner.nextDouble();
-                while (time != 0) {
-                    lake.addTime(time);
                     System.out.println("Time for " + lakeName + " enter 0 to quit");  //todo could be more user friendly
-                    time = numberScanner.nextDouble();
+                    double time = numberScanner.nextDouble();
+                    while (time != 0) {
+                        lake.addTime(time);
+                        System.out.println("Time for " + lakeName + " enter 0 to quit");  //todo could be more user friendly
+                        time = numberScanner.nextDouble();
 
+                    }
+                    //Got all the times? Add Lakes object to a list
+                    allLakesAndtimes.add(lake);
+
+                    //And ask for next lake
+                    System.out.println("Enter name of lake, enter to quit");
+                    lakeName = stringScanner.nextLine();
                 }
-                //Got all the times? Add Lakes object to a list
-                allLakesAndtimes.add(lake);
-
-                //And ask for next lake
-                System.out.println("Enter name of lake, enter to quit");
-                lakeName = stringScanner.nextLine();
+                allLakesAndtimes.forEach(Lakes::writeRunningtimes);
+                allLakesAndtimes.forEach(Lakes::writeFastestTime);
             }
+            else {
+                while (lakeName.length() !=0 ){
+                    System.out.println("Time for " + lakeName + " enter 0 to quit.");
+                    double time = numberScanner.nextDouble();
+                    while (time != 0){
+                        //TODO figure out how to add to the current lake
 
-            System.out.println("todo: iterate over list and print fastest time for each lake");
-            allLakesAndtimes.forEach(Lakes::writeRunningtimes);
-            allLakesAndtimes.forEach(Lakes::writeFastestTime);
+                    }
+                }
+            }
         }
         catch (InputMismatchException ime){
             System.out.println("Error, please check your input and try again\n"
